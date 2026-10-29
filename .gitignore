@@ -1,0 +1,13 @@
+# IDE and generated build output
+.vscode/
+.settings/
+.mrs/
+obj/
+build/
+*.o
+*.d
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
