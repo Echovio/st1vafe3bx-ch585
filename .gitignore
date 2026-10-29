@@ -11,3 +11,10 @@ build/
 *.bin
 *.map
 *.lst
+
+# Python environments, caches and generated experiment results
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+outputs/

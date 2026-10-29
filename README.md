@@ -66,6 +66,18 @@ CH585/
 
 本地使用 WCH RISC-V GCC 12，以原工程的编译参数、头文件和 MLC 配置为依赖，对提取的 `main.c` 和 `st1vafe3bx.c` 分别执行 `-fsyntax-only`，均通过。此检查没有链接固件，也没有验证独立构建或实际硬件上的 BLE、时序、采样精度和 MLC 模型效果。
 
+## 无硬件离线实验
+
+项目提供一条可运行的 Python 基线：按受试者分组划分训练集和测试集，提取均值、标准差与 RMS，分别训练仅 sEMG、仅 IMU 与融合的随机森林，并输出每类指标及混淆矩阵。演示数据是合成的，旨在检查流程，**其分数不代表实际性能**。
+
+```bash
+python -m pip install -r requirements-ml.txt
+python -m unittest discover -s tests -v
+python -m ml.baseline --demo --out outputs/demo_results.json
+```
+
+真实 CSV 字段和采集约束见 [data/README.md](data/README.md)。按该格式整理并获得数据使用授权后，可执行 `python -m ml.baseline --csv path/to/samples.csv --out outputs/results.json`。输出包含受试者编号，分享前请检查隐私。示例不包括滤波或重采样；它不能直接验证传感器 MLC 与设备端时延、内存和功耗。实验报告建议见 [reports/README.md](reports/README.md)。
+
 ## 许可
 
 本仓库的许可见根目录 `LICENSE`（MIT）。CH585 SDK、BLE 组件和 MEMS Studio 生成文件各自的版权与许可独立适用，集成或再分发前请核对其来源和许可。
